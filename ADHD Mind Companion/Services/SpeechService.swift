@@ -31,40 +31,33 @@ class SpeechService: NSObject, ObservableObject {
     }
     
     func requestPermissions() async -> Bool {
-        do {
-            // Request speech recognition permission
-            let speechStatus = await withCheckedContinuation { continuation in
-                SFSpeechRecognizer.requestAuthorization { status in
-                    continuation.resume(returning: status)
-                }
+        // Request speech recognition permission
+        let speechStatus = await withCheckedContinuation { continuation in
+            SFSpeechRecognizer.requestAuthorization { status in
+                continuation.resume(returning: status)
             }
-            guard speechStatus == .authorized else {
-                await MainActor.run {
-                    self.error = .speechNotAuthorized
-                }
-                return false
-            }
-            
-            // Request microphone permission
-            let audioStatus = await withCheckedContinuation { continuation in
-                AVAudioSession.sharedInstance().requestRecordPermission { granted in
-                    continuation.resume(returning: granted)
-                }
-            }
-            guard audioStatus else {
-                await MainActor.run {
-                    self.error = .microphoneNotAuthorized
-                }
-                return false
-            }
-            
-            return true
-        } catch {
+        }
+        guard speechStatus == .authorized else {
             await MainActor.run {
-                self.error = .permissionError
+                self.error = .speechNotAuthorized
             }
             return false
         }
+        
+        // Request microphone permission
+        let audioStatus = await withCheckedContinuation { continuation in
+            AVAudioSession.sharedInstance().requestRecordPermission { granted in
+                continuation.resume(returning: granted)
+            }
+        }
+        guard audioStatus else {
+            await MainActor.run {
+                self.error = .microphoneNotAuthorized
+            }
+            return false
+        }
+        
+        return true
     }
     
     func startRecording() async {
