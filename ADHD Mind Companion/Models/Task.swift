@@ -81,13 +81,13 @@ extension TaskEntity : Identifiable {
     }
 }
 
-enum TaskPriority: Int, CaseIterable {
+public enum TaskPriority: Int, CaseIterable {
     case low = 0
     case medium = 1
     case high = 2
     case urgent = 3
     
-    var displayName: String {
+    public var displayName: String {
         switch self {
         case .low: return "Low"
         case .medium: return "Medium"
@@ -96,7 +96,7 @@ enum TaskPriority: Int, CaseIterable {
         }
     }
     
-    var color: String {
+    public var color: String {
         switch self {
         case .low: return "green"
         case .medium: return "blue"
