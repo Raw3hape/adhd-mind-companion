@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-@objc(TaskEntity)
+@objc(CDTask)
 public class TaskEntity: NSManagedObject {
     
 }
@@ -16,7 +16,7 @@ public class TaskEntity: NSManagedObject {
 extension TaskEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<TaskEntity> {
-        return NSFetchRequest<TaskEntity>(entityName: "TaskEntity")
+        return NSFetchRequest<TaskEntity>(entityName: "CDTask")
     }
 
     @NSManaged public var id: UUID?

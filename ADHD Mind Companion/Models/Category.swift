@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-@objc(CategoryEntity)
+@objc(CDCategory)
 public class CategoryEntity: NSManagedObject {
     
 }
@@ -16,7 +16,7 @@ public class CategoryEntity: NSManagedObject {
 extension CategoryEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CategoryEntity> {
-        return NSFetchRequest<CategoryEntity>(entityName: "CategoryEntity")
+        return NSFetchRequest<CategoryEntity>(entityName: "CDCategory")
     }
 
     @NSManaged public var id: UUID?

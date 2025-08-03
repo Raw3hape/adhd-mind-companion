@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-@objc(NoteEntity)
+@objc(CDNote)
 public class NoteEntity: NSManagedObject {
     
 }
@@ -16,7 +16,7 @@ public class NoteEntity: NSManagedObject {
 extension NoteEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<NoteEntity> {
-        return NSFetchRequest<NoteEntity>(entityName: "NoteEntity")
+        return NSFetchRequest<NoteEntity>(entityName: "CDNote")
     }
 
     @NSManaged public var id: UUID?
