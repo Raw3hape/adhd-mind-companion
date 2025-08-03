@@ -22,14 +22,18 @@ extension TaskEntity {
     @NSManaged public var id: UUID?
     @NSManaged public var title: String?
     @NSManaged public var content: String?
+    @NSManaged public var notes: String?
+    @NSManaged public var groupName: String?
     @NSManaged public var isCompleted: Bool
     @NSManaged public var priority: Int16
     @NSManaged public var dueDate: Date?
+    @NSManaged public var completedAt: Date?
     @NSManaged public var createdAt: Date?
     @NSManaged public var updatedAt: Date?
     @NSManaged public var category: CategoryEntity?
     @NSManaged public var parentTask: TaskEntity?
     @NSManaged public var subtasks: NSSet?
+    @NSManaged public var linkedNotes: NSSet?
 
 }
 

@@ -26,6 +26,7 @@ extension NoteEntity {
     @NSManaged public var createdAt: Date?
     @NSManaged public var updatedAt: Date?
     @NSManaged public var category: CategoryEntity?
+    @NSManaged public var linkedTasks: NSSet?
 
 }
 
@@ -57,4 +58,19 @@ extension NoteEntity : Identifiable {
         }
         return cleanContent
     }
+}
+
+// MARK: Generated accessors for linkedTasks
+extension NoteEntity {
+    @objc(addLinkedTasksObject:)
+    @NSManaged public func addToLinkedTasks(_ value: TaskEntity)
+
+    @objc(removeLinkedTasksObject:)
+    @NSManaged public func removeFromLinkedTasks(_ value: TaskEntity)
+
+    @objc(addLinkedTasks:)
+    @NSManaged public func addToLinkedTasks(_ values: NSSet)
+
+    @objc(removeLinkedTasks:)
+    @NSManaged public func removeFromLinkedTasks(_ values: NSSet)
 }
