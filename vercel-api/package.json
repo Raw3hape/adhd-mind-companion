@@ -1,0 +1,15 @@
+{
+  "name": "adhd-mind-companion-api",
+  "version": "1.0.0",
+  "description": "API proxy for ADHD Mind Companion iOS app",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "openai": "^4.28.0"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}

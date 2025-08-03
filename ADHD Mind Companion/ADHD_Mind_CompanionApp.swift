@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct ADHD_Mind_CompanionApp: App {
     let persistenceController = PersistenceController.shared
+    let dataManager = DataManager.shared
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainTabView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(dataManager)
         }
     }
 }
