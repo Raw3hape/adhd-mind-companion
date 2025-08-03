@@ -33,7 +33,11 @@ class SpeechService: NSObject, ObservableObject {
     func requestPermissions() async -> Bool {
         do {
             // Request speech recognition permission
-            let speechStatus = await SFSpeechRecognizer.requestAuthorization()
+            let speechStatus = await withCheckedContinuation { continuation in
+                SFSpeechRecognizer.requestAuthorization { status in
+                    continuation.resume(returning: status)
+                }
+            }
             guard speechStatus == .authorized else {
                 await MainActor.run {
                     self.error = .speechNotAuthorized
@@ -42,7 +46,11 @@ class SpeechService: NSObject, ObservableObject {
             }
             
             // Request microphone permission
-            let audioStatus = await AVAudioSession.sharedInstance().requestRecordPermission()
+            let audioStatus = await withCheckedContinuation { continuation in
+                AVAudioSession.sharedInstance().requestRecordPermission { granted in
+                    continuation.resume(returning: granted)
+                }
+            }
             guard audioStatus else {
                 await MainActor.run {
                     self.error = .microphoneNotAuthorized
@@ -112,7 +120,7 @@ class SpeechService: NSObject, ObservableObject {
                     }
                 }
                 
-                if let error = error {
+                if error != nil {
                     self.error = .recognitionError
                     self.stopRecording()
                 }

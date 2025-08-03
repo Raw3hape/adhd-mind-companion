@@ -53,16 +53,38 @@ class MyDayViewModel: ObservableObject {
         let predicates = [
             NSPredicate(format: "isCompleted == NO"),
             NSPredicate(format: "dueDate > %@ AND dueDate <= %@", today as NSDate, nextWeek as NSDate)
-        ]\n        \n        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)\n        request.sortDescriptors = [
+        ]
+        
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        request.sortDescriptors = [
             NSSortDescriptor(keyPath: \TaskEntity.dueDate, ascending: true),
             NSSortDescriptor(keyPath: \TaskEntity.priority, ascending: false)
-        ]\n        \n        do {\n            return try dataManager.viewContext.fetch(request)
+        ]
+        
+        do {
+            return try dataManager.viewContext.fetch(request)
         } catch {
             print("Error fetching upcoming tasks: \(error)")
             return []
-        }\n    }\n    \n    private func fetchOverdueTasks() -> [TaskEntity] {\n        let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()\n        let now = Date()\n        \n        let predicates = [\n            NSPredicate(format: \"isCompleted == NO\"),\n            NSPredicate(format: \"dueDate < %@\", now as NSDate)\n        ]\n        \n        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)\n        request.sortDescriptors = [
+        }
+    }
+    
+    private func fetchOverdueTasks() -> [TaskEntity] {
+        let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
+        let now = Date()
+        
+        let predicates = [
+            NSPredicate(format: "isCompleted == NO"),
+            NSPredicate(format: "dueDate < %@", now as NSDate)
+        ]
+        
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        request.sortDescriptors = [
             NSSortDescriptor(keyPath: \TaskEntity.dueDate, ascending: true)
-        ]\n        \n        do {\n            return try dataManager.viewContext.fetch(request)
+        ]
+        
+        do {
+            return try dataManager.viewContext.fetch(request)
         } catch {
             print("Error fetching overdue tasks: \(error)")
             return []
@@ -84,4 +106,4 @@ class MyDayViewModel: ObservableObject {
     var todayPendingCount: Int {
         todayTasks.filter { !$0.isCompleted }.count
     }
-}"
+}
