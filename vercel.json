@@ -3,7 +3,5 @@
     "api/analyze.js": {
       "maxDuration": 30
     }
-  },
-  "buildCommand": "npm install",
-  "installCommand": "npm install"
+  }
 }
