@@ -25,8 +25,8 @@ struct AIAnalysisResult {
 class AIService: ObservableObject {
     static let shared = AIService()
     
-    // Replace with your Vercel deployment URL
-    private let baseURL = "https://adhd-mind-companion.vercel.app/api/analyze"
+    // Your Vercel deployment URL
+    private let baseURL = "https://adhd-mind-companion-sergyshkineu-2146.vercel.app/api/analyze"
     
     private init() {
         // API key is now stored securely on Vercel
